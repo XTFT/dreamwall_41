@@ -1,0 +1,39 @@
+<view class="bg" style="background-image:url({{backgroundUrl?backgroundUrl:'' }});background-size:100% 100%;background-attachment:fixed"></view>
+<view class="container" >
+    <view class="outer">
+        <view class="top_main">
+            <view class="row" >
+                <view class="row_detail comp_name">
+                    {{company_name}}
+                </view>
+            </view>
+            <view class="row" >
+                <view class="icon_box fl">
+                     <image src="/images/mxq1/mxq1_location_icon.png"></image>
+                </view>
+                <view class="row_detail wider ml20 fl" bindtap="openLocatioin">
+                    {{address}}
+                </view>
+                <image src="/images/comp_right_icon.png" class="fr mt10 right_icon"></image>
+            </view>
+            <view class="row" >
+                <view class="icon_box fl">
+                     <image src="/images/mxq1/mxq1_tele_icon.png"></image>
+                </view>
+                <view class="row_detail wider ml20 fl" bindtap="contact">
+                    {{company_tel}}
+                </view>
+                <image src="/images/comp_right_icon.png" class="fr mt10 right_icon"></image>
+            </view>
+        </view>
+        <view class="main">
+            <view class="desc_words">
+               <rich-text nodes="{{introduce}}"/>
+            </view>
+        </view>
+    </view>
+</view>
+<!--music icon  -->
+<view class="music_icon pf" wx:if="{{!hideMusic}}" bindtap="playBgm">
+    <image  class="{{playing == true ? 'play':''}}" src="/images/music_icon.png"></image>
+</view>

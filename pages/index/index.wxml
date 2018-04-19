@@ -1,0 +1,410 @@
+<!--pages/first/first.wxml-->
+<!--container start  -->
+<!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&& container1 &&&&&&&&&&&&&&&&&&&&&  -->
+<view class="bg" style="background-image:url({{backgroundUrl?backgroundUrl:http_host + '/mini_program/dreamwall/static/mxqImgs/mxq1/mxq1_page_bg.png'}}); background-attachment:fixed;background-size:100vw 100vh;" wx:if="{{status==1}}"></view>
+<view class="bg" style="background-image:url({{backgroundUrl?backgroundUrl:''}}); background-attachment:fixed; background-size:100vw 100vh;" wx:elif="{{status == 2}}"></view>
+<view class="bg" style="background-image:url({{backgroundUrl?backgroundUrl:http_host+'/mini_program/dreamwall//static/mxqImgs/mxq3/mxq3_page_bg.png'}});background-attachment:fixed;background-size:100vw 100vh; " wx:elif="{{status == 3}}" ></view>
+<view class="bg" style="background-image:url({{backgroundUrl?backgroundUrl:''}}); background-size:100vw 100vh;background-attachment:fixed;"  wx:elif="{{status == 4}}"></view>
+
+<view class="container pr container1" style=" padding-bottom:174rpx;"  wx:if="{{status==1}}">
+    <view class="row_left fl">
+        <image class="tips pa" wx:if="{{leftTips}}" style="left:{{l_left}};top:{{l_top}};z-index:999;width:185rpx;height:74rpx" src="/images/mxq1/mxq1_tips_l_icon.png"></image>
+        <view class="wall wall1 pr {{item.index? 'wall' + item.index : 'wall1'}}" wx:for="{{leftList}}" wx:key="item" style="background-image:url({{http_host + '/mini_program/dreamwall/static/mxqImgs/mxq1/mxq1_wallbg_' +item.index + '.png'}})">
+            <view class="pa top_icon">
+                <image src="/images/mxq1/mxq1_wall_top_icon.png"></image>
+            </view>
+            <view class="wall_top"  data-id="{{item.id}}">
+                <image class="avatar mr10 fl"  wx:if="{{item.anonymous == 1}}" src="/images/mxq1_avatar_1.png" data-id="{{item.id}}"  bindtap="toDetail"></image>
+                <image class="avatar mr10 fl" wx:else src="{{item.head}}" data-id="{{item.id}}"  bindtap="toDetail"></image>
+                <view class="msg fl" data-id="{{item.id}}"  bindtap="toDetail">
+                    <view class="auther_name ellips">{{item.nickname}}</view>
+                    <view class="auther_time ellips">{{item.create_time}}</view>
+                </view>
+            </view>
+            <view class="wall_main" bindtap="toDetail" data-id="{{item.id}}">
+                {{item.dream}}
+                <image class="dream_thumb" mode="aspectFill" wx:if="{{item.dream_thumb != ''}}" data-id="{{item.id}}" data-src="{{item.dream_thumb}}" catchtap="prevImg" src="{{item.dream_thumb}}"></image>
+            </view>
+            <view class="options">
+                <view class="make_like ml10 mr15 fl">
+                    <image wx:if="{{item.likes_time == null }}" src="/images/mxq1/mxq1_like_icon.png" data-id="{{item.id}}" bindtap="makeLike"></image>
+                    <image wx:else src="/images/mxq1/mxq1_liked_icon.png" data-id="{{item.id}}" bindtap="showTips"></image>
+                </view>
+                <view class="fl like_count">
+                    {{item.likes}}
+                </view>
+                <view class="pinglun_icon fl ml10">
+                    <image src="/images/mxq1/mxq1_pl_icon.png" data-id="{{item.id}}" bindtap="toDetail"></image>
+                </view>
+                <view class="pl_count fl ml15" data-id="{{item.id}}" bindtap="toDetail">
+                    {{item.comments}}
+                </view>
+                <view class="del fr" data-id="{{item.id}}" wx:if="{{user_id == item.user_id}}" bindtap="del">删除</view>
+            </view>
+        </view>
+    </view>
+    <view class="row_right pr fr">
+        <image class="tips pa" wx:if="{{rightTips}}" style="left:{{r_left}};top:{{r_top}};z-index:999" src="/images/mxq1/mxq1_tips_icon.png"></image>
+        <view class="wall pr {{item.index? 'wall' + item.index : 'wall1'}}" wx:for="{{rightList}}" wx:key="item" style="background-image:url({{http_host + '/mini_program/dreamwall/static/mxqImgs/mxq1/mxq1_wallbg_' +item.index + '.png'}})">
+            <view class="pa top_icon">
+                <image src="/images/mxq1/mxq1_wall_top_icon.png"></image>
+            </view>
+            <view class="wall_top" data-id="{{item.id}}"  bindtap="toDetail">
+                <image class="avatar mr10 fl" wx:if="{{item.anonymous == 1}}" src="/images/mxq1_avatar_1.png"></image>
+                <image class="avatar mr10 fl" wx:else src="{{item.head}}"></image>
+                <view class="msg fl">
+                    <view class="auther_name ellips">{{item.nickname}}</view>
+                    <view class="auther_time ellips">{{item.create_time}}</view>
+                </view>
+            </view>
+            <view class="wall_main" bindtap="toDetail" data-id="{{item.id}}">
+                {{item.dream}}
+                <image class="dream_thumb" mode="aspectFill" wx:if="{{item.dream_thumb != ''}}" data-src="{{item.dream_thumb}}" catchtap="prevImg" data-id="{{item.id}}" src="{{item.dream_thumb}}"></image>
+            </view>
+            <view class="options">
+                <view class="make_like ml10 mr15 fl">
+                    <image wx:if="{{item.likes_time == null}}" src="/images/mxq1/mxq1_like_icon.png" data-id="{{item.id}}" bindtap="makeLike"></image>
+                    <image wx:if="{{item.likes_time != null}}" src="/images/mxq1/mxq1_liked_icon.png" data-id="{{item.id}}" bindtap="showTips"></image>
+                </view>
+                <view class="fl like_count">
+                    {{item.likes}}
+                </view>
+                <view class="pinglun_icon fl ml10">
+                    <image src="/images/mxq1/mxq1_pl_icon.png" data-id="{{item.id}}" bindtap="toDetail"></image>
+                </view>
+                <view class="pl_count fl ml15" data-id="{{item.id}}" bindtap="toDetail">
+                    {{item.comments}}
+                </view>
+                <view class="del fr" data-id="{{item.id}}" wx:if="{{user_id != 0 && user_id == item.user_id}}" bindtap="del">删除</view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&& container2 &&&&&&&&&&&&&&&&&&&&&  -->
+<view class="container container2" style="background-image:url({{backgroundUrl?backgroundUrl:''}}); background-attachment:fixed;padding-bottom:174rpx; background-size:100vw 100vh;" wx:elif="{{status == 2}}">
+    <view class="row_left fl">
+        <image class="tips pa" wx:if="{{leftTips}}" style="left:{{l_left}};top:{{l_top}};z-index:999;width:185rpx;height:74rpx" src="/images/mxq2/mxq2_tips_l.png"></image>
+        <view class="wall {{item.index? 'wall' + item.index : 'wall1'}}" wx:for="{{leftList}}" wx:key="item" style="background-image:url('{{http_host + '/mini_program/dreamwall/static/mxqImgs/mxq2/mxq2_wall'+ item.index + '_bg.png' }}')">
+            <view class="top_icon pa" style="background-image: url({{http_host + '/mini_program/dreamwall/static/mxqImgs/mxq2/mxq2_wall'+item.index+'_top.png'}})"></view>
+            <view class="wall_top" data-id="{{item.id}}"  bindtap="toDetail">
+                <image class="avatar mr10 fl" wx:if="{{item.anonymous == 1}}" src="/images/mxq1_avatar_1.png"></image>
+                <image class="avatar mr10 fl" wx:else src="{{item.head}}"></image>
+                <view class="msg fl">
+                    <view class="auther_name ellips">{{item.nickname}}</view>
+                    <view class="auther_time ellips">{{item.create_time}}</view>
+                </view>
+            </view>
+           <view class="wall_main" bindtap="toDetail" data-id="{{item.id}}">
+                {{item.dream}}
+                <image class="dream_thumb" mode="aspectFill" wx:if="{{item.dream_thumb != ''}}" data-id="{{item.id}}" data-src="{{item.dream_thumb}}" catchtap="prevImg" src="{{item.dream_thumb}}"></image>
+            </view>
+            <view class="options">
+                <view class="make_like ml10 mr5 fl">
+                    <image wx:if="{{item.likes_time == null }}" data-id="{{item.id}}" src="/images/mxq2/mxq2_like_icon.png" bindtap="makeLike"></image>
+                    <image wx:else bindtap="showTips" data-id="{{item.id}}" src="/images/mxq2/mxq2_liked_icon.png"></image>
+                </view>
+                <view class="fl like_count">
+                    {{item.likes}}
+                </view>
+                <view class="pinglun_icon fl ml10">
+                    <image src="/images/mxq2/mxq2_pl_icon.png" data-id="{{item.id}}" bindtap="toDetail"></image>
+                </view>
+                <view class="pl_count fl ml15" data-id="{{item.id}}" bindtap="toDetail">
+                    {{item.comments}}
+                </view>
+                <view class="del fr" data-id="{{item.id}}" wx:if="{{user_id == item.user_id}}" bindtap="del">删除</view>
+            </view>
+        </view>
+    </view>
+    <view class="row_right pr fr">
+        <image class="tips pa" wx:if="{{rightTips}}" style="left:{{r_left}};top:{{r_top}};z-index:999" src="/images/mxq2/mxq2_tips.png"></image>
+        <view class="wall {{item.index? 'wall' + item.index : 'wall1'}}" wx:for="{{rightList}}" wx:key="item" style="background-image:url('{{http_host + '/mini_program/dreamwall/static/mxqImgs/mxq2/mxq2_wall'+ item.index + '_bg.png' }}')">
+            <view class="top_icon pa" style="background-image: url({{http_host + '/mini_program/dreamwall/static/mxqImgs/mxq2/mxq2_wall'+item.index+'_top.png'}})"></view>
+            <view class="wall_top" data-id="{{item.id}}"  bindtap="toDetail">
+                <image class="avatar mr10 fl" wx:if="{{item.anonymous == 1}}" src="/images/mxq1_avatar_1.png"></image>
+                <image class="avatar mr10 fl" wx:else src="{{item.head}}"></image>
+                <view class="msg fl">
+                    <view class="auther_name ellips">{{item.nickname}}</view>
+                    <view class="auther_time ellips">{{item.create_time}}</view>
+                </view>
+            </view>
+           <view class="wall_main" bindtap="toDetail" data-id="{{item.id}}">
+                {{item.dream}}
+                <image class="dream_thumb" mode="aspectFill" wx:if="{{item.dream_thumb != ''}}" data-id="{{item.id}}" data-src="{{item.dream_thumb}}" catchtap="prevImg" src="{{item.dream_thumb}}"></image>
+            </view>
+            <view class="options">
+                <view class="make_like ml10 mr5 fl">
+                    <image data-id="{{item.id}}" bindtap="makeLike" wx:if="{{item.likes_time == null }}" src="/images/mxq2/mxq2_like_icon.png"></image>
+                    <image wx:else bindtap="showTips" src="/images/mxq2/mxq2_liked_icon.png"></image>
+                </view>
+
+                <view class="fl like_count">
+                    {{item.likes}}
+                </view>
+                <view class="pinglun_icon fl ml10">
+                    <image src="/images/mxq2/mxq2_pl_icon.png"  data-id="{{item.id}}" bindtap="toDetail"></image>
+                </view>
+                <view class="pl_count fl ml15" data-id="{{item.id}}" bindtap="toDetail">
+                    {{item.comments}}
+                </view>
+                <view class="del fr" data-id="{{item.id}}" wx:if="{{user_id == item.user_id}}" bindtap="del">删除</view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&& container3 &&&&&&&&&&&&&&&&&&&&&  -->
+<view class="container container3"  wx:elif="{{status == 3}}" style="background-image:url({{backgroundUrl?backgroundUrl:http_host+'/mini_program/dreamwall//static/mxqImgs/mxq3/mxq3_page_bg.png'}});background-attachment:fixed;padding-bottom:174rpx; background-size:100vw 100vh;" >
+    <view wx:if="{{backgroundUrl}}" class="bg pf" ></view> 
+    <view class="row_left fl">
+        <image class="tips pa" wx:if="{{leftTips}}" style="left:{{l_left}};top:{{l_top}};z-index:999" src="/images/mxq2/mxq2_tips_l.png"></image>
+        <view class="wall pr" style="background-image: url({{http_host}}/mini_program/dreamwall/static/mxqImgs/mxq3/mxq3_wall_bg_0.png);" wx:for="{{leftList}}" wx:key="item">
+            <image class="pa irow" src="/images/mxq3/mxq3_wall_icon.png"></image>
+            <view class="wall_main" bindtap="toDetail" data-id="{{item.id}}">
+                {{item.dream}}
+                <image  class="dream_thumb"  mode="aspectFill" wx:if="{{item.dream_thumb != ''}}"  data-id="{{item.id}}" data-src="{{item.dream_thumb}}" catchtap="prevImg" src="{{item.dream_thumb}}"></image>
+            </view>
+            <view class="options flex">
+                <view class="liked ops flex_item flex option_block">
+                   <image wx:if="{{item.likes_time == null }}" data-id="{{item.id}}" src="/images/mxq3/mxq3_liked_icon.png" bindtap="makeLike"></image>
+                    <image wx:else bindtap="showTips" data-id="{{item.id}}" src="/images/mxq3/mxq3_like_icon.png"></image>
+                    <view class="like_count ml10">{{item.likes}}</view>
+                </view>
+                <view class="pl ops flex_item flex option_block">
+                    <image class="pl_icon icons" data-id="{{item.id}}" bindtap="toDetail" src="/images/mxq3/mxq3_pl_icon.png"></image>
+                    <view class="pl_count ml10" data-id="{{item.id}}" bindtap="toDetail">{{item.comments}}</view>
+                </view>
+                <view class="del_view ops option_block">
+                    <image class="delete flex_item delete_icon icons" data-id="{{item.id}}" wx:if="{{user_id == item.user_id}}" bindtap="del" src="/images/mxq3/mxq3_delete_icon.png"></image>
+                </view>
+            </view>
+            <view class="my_msg pa" data-id="{{item.id}}"  bindtap="toDetail">
+                <view class="msg_left fl">
+                    <view class="msg_time tl">
+                        {{item.create_time}}
+                    </view>
+                    <view class="msg_name tr">
+                        {{item.nickname}}
+                    </view>
+                </view>
+                <view class="msg_img fr">
+                    <image class="avatar mr10 fl" wx:if="{{item.anonymous == 1}}" src="/images/mxq1_avatar_1.png"></image>
+                    <image class="avatar mr10 fl" wx:else src="{{item.head}}"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class=" row_right pr fr">
+        <image class="tips pa" wx:if="{{rightTips}}" style="left:{{r_left}};top:{{r_top}};z-index:999" src="/images/mxq2/mxq2_tips.png"></image>
+        <view class="wall pr" style="background-image: url({{http_host}}/mini_program/dreamwall/static/mxqImgs/mxq3/mxq3_wall_bg_0.png);" wx:for="{{rightList}}" wx:key="item">
+            <image class="pa irow" src="/images/mxq3/mxq3_wall_icon.png"></image>
+            <view class="wall_main" bindtap="toDetail" data-id="{{item.id}}">
+                {{item.dream}}
+                <image mode="aspectFill"  class="dream_thumb" wx:if="{{item.dream_thumb != ''}}" data-id="{{item.id}}" data-src="{{item.dream_thumb}}" catchtap="prevImg" src="{{item.dream_thumb}}"></image>
+            </view>
+            <view class="options flex">
+                <view class="liked ops flex_item flex">
+                    <image wx:if="{{item.likes_time == null }}" data-id="{{item.id}}" src="/images/mxq3/mxq3_liked_icon.png" bindtap="makeLike"></image>
+                    <image wx:else bindtap="showTips" data-id="{{item.id}}" src="/images/mxq3/mxq3_like_icon.png"></image>
+                    <view class="like_count ml10">{{item.likes}}</view>
+                </view>
+                <view class="pl ops flex_item flex">
+                    <image class="pl_icon icons " data-id="{{item.id}}" bindtap="toDetail" src="/images/mxq3/mxq3_pl_icon.png"></image>
+                    <view class="pl_count ml10" data-id="{{item.id}}" bindtap="toDetail">{{item.comments}}</view>
+                </view>
+                <view class="del_view ops option_block">
+                    <image class="delete flex_item delete_icon icons" data-id="{{item.id}}" wx:if="{{user_id == item.user_id}}" bindtap="del" src="/images/mxq3/mxq3_delete_icon.png"></image>
+                </view>
+            </view>
+            <view class="my_msg pa" data-id="{{item.id}}"  bindtap="toDetail">
+                <view class="msg_left fl">
+                    <view class="msg_time tl">
+                        {{item.create_time}}
+                    </view>
+                    <view class="msg_name tr">
+                        {{item.nickname}}
+                    </view>
+                </view>
+                <view class="msg_img fr">
+                    <image class="avatar mr10 fl" wx:if="{{item.anonymous == 1}}" src="/images/mxq1_avatar_1.png"></image>
+                    <image class="avatar mr10 fl" wx:else src="{{item.head}}"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&& container4 &&&&&&&&&&&&&&&&&&&&&  -->
+<view class="container container4" style="background-image:url({{backgroundUrl?backgroundUrl:''}}); background-size:100vw 100vh;background-attachment:fixed;padding-bottom:174rpx;" wx:elif="{{status == 4}}">
+    <view class="row_left pr fl">
+        <image class="tips pa" wx:if="{{leftTips}}" style="left:{{l_left}};top:{{l_top}};z-index:999;width:185rpx;height:74rpx" src="/images/mxq4/mxq4_left_tip_icon.png"></image>
+        <view class="wall {{item.index? 'wall' + item.index : 'wall1'}}" wx:for="{{leftList}}" wx:key="item" >
+            <view class="wall_top" data-id="{{item.id}}"  bindtap="toDetail">
+                <image class="avatar mr10 fl" wx:if="{{item.anonymous == 1}}" src="/images/mxq1_avatar_1.png"></image>
+                <image class="avatar mr10 fl" wx:else src="{{item.head}}"></image>
+                <view class="msg fl">
+                    <view class="auther_name ellips">{{item.nickname}}</view>
+                    <view class="auther_time ellips">{{item.create_time}}</view>
+                </view>
+            </view>
+            <view class="wall_main"  bindtap="toDetail" data-color="{{item.index?item.index:1}}" data-id="{{item.id}}">
+                {{item.dream}}
+                <image  class="dream_thumb" mode="aspectFill" wx:if="{{item.dream_thumb != ''}}" data-src="{{item.dream_thumb}}" catchtap="prevImg" data-id="{{item.id}}" src="{{item.dream_thumb}}"></image>
+            </view>
+            <view class="options">
+                <view class="make_like ml10 mr10 fl">
+                    <image wx:if="{{item.likes_time == null}}" src="/images/mxq4/mxq4_like_icon.png" data-id="{{item.id}}" bindtap="makeLike"></image>
+                    <image wx:if="{{item.likes_time != null}}" src="/images/mxq4/mxq4_liked_icon.png" data-id="{{item.id}}" bindtap="showTips"></image>
+                </view>
+                <view class="fl like_count">
+                    {{item.likes}}
+                </view>
+                <view class="pinglun_icon fl ml10">
+                    <image src="/images/mxq4/mxq4_pl_icon.png" data-id="{{item.id}}" bindtap="toDetail"></image>
+                </view>
+                <view class="pl_count fl ml15" data-id="{{item.id}}" bindtap="toDetail">
+                    {{item.comments}}
+                </view>
+                <view class="del fr" data-id="{{item.id}}" wx:if="{{user_id != 0 && user_id == item.user_id}}" bindtap="del">删除</view>
+            </view>
+        </view>
+    </view>
+    <view class="row_right pr fr" >
+        <image class="tips pa" wx:if="{{rightTips}}" style="left:{{r_left}};top:{{r_top}};z-index:999" src="/images/mxq4/mxq4_right_tip_icon.png"></image>
+        <view class="wall {{item.index? 'wall' + item.index : 'wall1'}}" wx:for="{{rightList}}" wx:key="item">
+            <view class="wall_top" data-id="{{item.id}}"  bindtap="toDetail">
+                <image class="avatar mr10 fl" wx:if="{{item.anonymous == 1}}" src="/images/mxq1_avatar_1.png"></image>
+                <image class="avatar mr10 fl" wx:else src="{{item.head}}"></image>
+                <view class="msg fl">
+                    <view class="auther_name ellips">{{item.nickname}}</view>
+                    <view class="auther_time ellips">{{item.create_time}}</view>
+                </view>
+            </view>
+            <view class="wall_main" bindtap="toDetail" data-color="{{item.index?item.index:1}}"  data-id="{{item.id}}">
+                {{item.dream}}
+                <image  class="dream_thumb" mode="aspectFill" wx:if="{{item.dream_thumb != ''}}"  data-src="{{item.dream_thumb}}" catchtap="prevImg" data-id="{{item.id}}" src="{{item.dream_thumb}}"></image>
+            </view>
+            <view class="options">
+                <view class="make_like ml10 mr10 fl">
+                    <image wx:if="{{item.likes_time == null}}" src="/images/mxq4/mxq4_like_icon.png" data-id="{{item.id}}" bindtap="makeLike"></image>
+                    <image wx:if="{{item.likes_time != null}}" src="/images/mxq4/mxq4_liked_icon.png" data-id="{{item.id}}" bindtap="showTips"></image>
+                </view>
+                <view class="fl like_count">
+                    {{item.likes}}
+                </view>
+                <view class="pinglun_icon fl ml10">
+                    <image src="/images/mxq4/mxq4_pl_icon.png" data-id="{{item.id}}" bindtap="toDetail"></image>
+                </view>
+                <view class="pl_count fl ml15" data-id="{{item.id}}" bindtap="toDetail">
+                    {{item.comments}}
+                </view>
+                <view class="del fr" data-id="{{item.id}}" wx:if="{{user_id != 0 && user_id == item.user_id}}" bindtap="del">删除</view>
+            </view>
+        </view>
+    </view>
+</view>
+<!--container end  -->
+
+
+<!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ common $$$$$$$$$$$$$$$$$$$$$$$$$$  -->
+
+<!-- music icon start  -->
+<view class="music_icon pf" wx:if="{{!hideMusic}}" bindtap="playBgm">
+    <image wx:if="{{status == 4}}" class="{{playing == true ? 'play':''}}" src="/images/mxq4_music_icon.png"></image>
+    <image wx:if="{{status != 4}}" class="{{playing == true ? 'play':''}}" src="/images/music_icon.png"></image>
+</view>
+<!-- music icon end   -->
+
+<!-- add wall start -->
+<view class="add_wall add_wall1 tc flex pf" bindtap="addDream" wx:if="{{!add && status == 1}}">
+    <image class="mr20" style="width:40rpx;height:40rpx;" src="/images/add.png"></image>
+    {{wish_name}}
+</view>
+<view class="add_wall flex add_wall2 tc pf" bindtap="addDream" wx:if="{{!add && status == 2}}">
+    <image class="mr20" style="width:40rpx;height:40rpx;" src="/images/add.png"></image>
+    {{wish_name}}
+</view>
+<view class="add_wall flex add_wall3 tc pf" bindtap="addDream" wx:if="{{!add && status == 3}}">
+    <image class="mr20" style="width:40rpx;height:40rpx;" src="/images/add.png"></image>
+    {{wish_name}}
+</view>
+<view class="add_wall flex add_wall4 tc pf" bindtap="addDream" wx:if="{{!add && status == 4}}">
+    <image class="mr20" style="width:40rpx;height:40rpx;" src="/images/add.png"></image>
+    {{wish_name}}
+</view>
+<!-- add wall end  -->
+
+
+<view class="bigimg" wx:if="{{bigimg}}" bindtap="bigimgclose">
+    <image  src="{{bigimgsrc}}" mode="widthFix"></image>
+</view>
+
+<!-- to top start  -->
+<image class="to_top pf flex" bindtap="toTop" wx:if="{{!spread && showTotop}}" src="/images/toTop.png"></image>
+<!-- to top end  -->
+
+<!-- spread start  -->
+<image class="spread tc pf flex" bindtap="spread" wx:if="{{!spread}}" src="/images/spread_icon.png"></image>
+<view class="pack_up pf flex" wx:if="{{spread}}">
+    <image class="pack_up_btn tc" bindtap="packUp" src="/images/mxq1/mxq1_packup_icon.png"></image>
+    <view class="links flex">
+        <!-- <image class="my_dream link_block" bindtap="toMyDream" src="/images/mydream.png"></image> -->
+        <view class="my_dream link_block flex" bindtap="toMyDream" style="flex-direction:colum;background:#fff; ">
+            <image style="width:34rpx;height:40rpx;" src="/images/user_icon.png"></image>
+            <text class="mt15 ellips tc" style="width:100%; font-size:20rpx;font-family:'Microsoft Yahei'; color:#949494">我的</text>
+        </view>
+        <image class="hot link_block" wx:if="{{hotOrder}}" bindtap="hotOrder" src="/images/hot.png"></image>
+        <image class="hot link_block" wx:elif="{{!hotOrder}}" bindtap="hotOrder" src="/images/order.png"></image>
+        <image class="comp link_block" bindtap="toComp" src="/images/company.png"></image>
+         <image wx:if="{{showTotop}}" class="top link_block" bindtap="toTop" src="/images/gotop.png"></image> 
+    </view>
+</view>
+<!-- spread end  -->
+
+<!-- addForm start  -->
+<view class="add_bg pa" bindtouchstart="hideForm" wx:if="{{add}}"></view>
+<view class="my_form pf" id="myForm" wx:if="{{add}}">
+    <form id="my_form">
+        <textarea fixed class="dreamInp" bindinput='confirm' bindconfirm="confirm" bindblur="confirm" cursor-spacing='50' style="font-size:28rpx;color:#707070;height:270rpx;" placeholder="请写下您的{{dream_name}}，字数100字以内" maxlength="100" placeholder-style="font-size:28rpx;color:#707070"
+        />
+        <view class="add_pic flex pr">
+            <image class="add_pic_icon" bindtap="addPic" wx:if="{{imgSrc == ''}}" src="/images/add_icon.png"></image>
+            <image src="{{imgSrc}}" bindtap="addPic" class="my_pic" wx:else></image>
+            <image class="pa del_icon" wx:if="{{imgSrc != ''}}" bindtap="deletPic" src="/images/mxq1/mxq1_delet_icon.png"></image>
+        </view>
+        <view class="hide_name mt15 flex tr" wx:if="{{is_anonymous}}" bindtap="hideName">
+            <view class="check_icon mr10 pr">
+                <image class="pa" src="/images/yes.png" style="width:24rpx;height:24rpx;left:0;top:0" wx:if="{{hideName}}"></image>
+            </view>
+            <view class="check_text">匿名</view>
+        </view>
+        <button id="submit" class="submit1" wx:if="{{status == 1}}" bindtap="submit">发布</button>
+        <button id="submit" class="submit2" wx:if="{{status == 2}}" bindtap="submit">发布</button>
+        <button id="submit" class="submit3" wx:if="{{status == 3}}" bindtap="submit">发布</button>
+        <button id="submit" class="submit4" wx:if="{{status == 4}}" bindtap="submit">发布</button>
+    </form>
+</view>
+<!--addForm end  -->
+
+<view class="msgRow pf tc" wx:if="{{loading != ''}}" style="width:100%;left:0;bottom:0;height:180rpx;color:#c8c8c8;line-height:26rpx;margin-top:174rpx; font-size:26rpx;background-color:rgba(0,0,0,0))" >
+    {{loading}}
+</view>
+<block wx:if='{{tx != 0 && tx!=5}}'>
+    <image class="pf fy fy1" src="{{'/images/tx' + tx +'.png'}}"></image>
+    <image class="pf fy fy2" src="{{'/images/tx' + tx +'.png'}}"></image>
+    <image class="pf fy fy3" src="{{'/images/tx' + tx +'.png'}}"></image>
+    <image class="pf fy fy4" src="{{'/images/tx' + tx +'.png'}}"></image>
+    <image class="pf fy fy5" src="{{'/images/tx' + tx +'.png'}}"></image>
+    <image class="pf fy fy6" src="{{'/images/tx' + tx +'.png'}}"></image>
+    <image class="pf fy fy7" src="{{'/images/tx' + tx +'.png'}}"></image>
+</block>
+<block wx:if='{{tx == 5}}'>
+    <image class="pf fy fy1" src="{{'/images/wj1.png'}}"></image>
+    <image class="pf fy fy2" src="{{'/images/wj2.png'}}"></image>
+    <image class="pf fy fy3" src="{{'/images/wj3.png'}}"></image>
+    <image class="pf fy fy4" src="{{'/images/wj4.png'}}"></image>
+    <image class="pf fy fy5" src="{{'/images/wj5.png'}}"></image>
+    <image class="pf fy fy6" src="{{'/images/wj6.png'}}"></image>
+    <image class="pf fy fy7" src="{{'/images/wj7.png'}}"></image>
+</block>

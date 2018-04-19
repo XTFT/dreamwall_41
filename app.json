@@ -1,0 +1,31 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/mxq1/myDream/myDream",
+        "pages/mxq1/mxdetail/mxdetail",
+        "pages/mxq1/likelist/likelist",
+        "pages/mxq1/comp/comp",
+        "pages/mxq2/mxdetail/mxdetail",
+        "pages/mxq2/likelist/likelist",
+        "pages/mxq2/myDream/myDream",
+        "pages/mxq2/comp/comp",
+        "pages/mxq3/mxdetail/mxdetail",
+        "pages/mxq3/likelist/likelist",
+        "pages/mxq3/myDream/myDream",
+        "pages/mxq3/comp/comp",
+        "pages/mxq4/likelist/likelist",
+        "pages/mxq4/mxdetail/mxdetail",
+        "pages/mxq4/myDream/myDream",
+        "pages/mxq4/comp/comp"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTitleText": "梦想墙",
+        "navigationBarTextStyle": "white"
+    },
+    "networkTimeout": {
+        "request": 10000,
+        "downloadFile": 10000
+    }
+}

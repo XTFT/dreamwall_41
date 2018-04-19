@@ -1,0 +1,108 @@
+/* pages/mxq1/myDream/myDream.wxss */
+.container{
+    padding:40rpx 30rpx 0 30rpx;
+    width: calc(100vw - 60rpx);
+    /* height: auto; */
+    min-height: calc(100vh - 40rpx);
+    overflow: hidden;
+    font-size: 32rpx;
+    color: #333;
+    background-color: #fdf9ee;
+}
+.dream_row{
+    width: calc(100% - 75rpx);
+    height:auto;
+    padding:30rpx 30rpx 20rpx 45rpx;        
+    background-color: #fff;
+    margin-bottom: 32rpx;
+    border:2px solid #fcf0d5;
+}
+.row_top{
+    width: 100%;
+    height: 88rpx;
+    line-height: 88rpx;
+    margin-bottom: 30rpx;
+    overflow:hidden;
+}
+.myPic{
+    width: 88rpx;
+}
+.myPic image{
+   width:88rpx;
+   height: 88rpx;
+   border-radius: 50%;
+}
+.myName{
+    width: 188rpx;
+}
+.myDate{
+    max-width: 235rpx;
+    font-size: 26rpx;
+}
+.myText{
+  width: 100%;
+  height: auto;
+  font-size: 32rpx;
+  line-height: 42rpx;
+  padding-bottom: 20rpx;
+  overflow: hidden;
+  word-break: break-all;
+}
+.myImg{
+    width: 100%;
+    height: auto;
+}
+.myImg image{
+    width: 340rpx;
+    height:192rpx;
+    border-radius: 8px;
+}
+.options{
+    height: 35rpx;
+    width: 100%;
+    line-height: 35rpx;
+    font-size: 22rpx;
+    align-items: center;
+}
+.options .icons{
+    height: 100%;
+    align-items: center;
+}
+.options image{
+    width: 40rpx;
+    height: 37rpx;
+}
+.options image:last-child{
+    width: 38rpx;
+    height: 36rpx;
+}
+.theirPic{
+    height: 100%;
+}
+
+.theirPic  image{
+    width: 37rpx;
+    height:37rpx;
+    border-radius: 50%;
+}
+
+/* spread  */
+.pack_up{
+    width: 500rpx;
+}
+.links{
+    height: 100%;
+    border: none;
+    width: 408rpx;
+    border-radius: 8px;
+}
+.link_block{
+    width: 33.3%;
+}
+.delete{
+     height: 100%;
+    padding: 0 22rpx;
+    line-height: 90rpx;
+    font-size: 26rpx;
+    right: 0;
+}

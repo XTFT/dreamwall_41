@@ -1,0 +1,70 @@
+<view class="bg" style="background-image:url({{backgroundUrl?backgroundUrl: http_host + '/mini_program/dreamwall/static/mxqImgs/mxq1/mxq1_page_bg.png' }});background-size:100% 100%;background-attachment:fixed"></view>
+<view class="container" >
+    <view class="dream_row" wx:for="{{dreamList}}" wx:key="item" style="background-image:url({{http_host + '/mini_program/dreamwall/static/mxqImgs/mxq1/mxq1_plbg.png'}})">
+        <view class="row_top">
+            <view class="fl myPic mr15">
+                <image class="avatar mr10 fl" wx:if="{{item.anonymous == 1}}" src="/images/mxq1_avatar_1.png"></image>
+                <image class="avatar mr10 fl" wx:else src="{{item.head}}"></image>
+            </view>
+            <view class="myName fl ellips ml5">{{item.nickname}}</view>
+            <view class="myDate ellips fl">{{item.create_time}}</view>
+            <view class="delete fr" data-id="{{item.id}}" bindtap="del">删除</view>
+        </view>
+        <view class="content">
+            <view class="myText" data-id="{{item.id}}" bindtap="toDetails"> {{item.dream}}</view>
+            <view class="myImg mb20" wx:if="{{item.dream_thumb!= ''}}" >
+                <image  class="dream_thumb" mode="aspectFill" src="{{http_host}}{{item.dream_thumb}}" data-id="{{item.id}}"  bindtap="toDetails"></image>
+            </view>
+            <view class="options flex ">
+                <view class="theirPic" data-id="{{item.id}}" data-likeCount="{{item.likes}}"bindtap="toList" wx:if="{{item.likes != 0 }}">
+                    <image wx:if="{{likeUsers.index}}" class="{{likeUsers.index ? 'likePic'+likeUsers.index : ''}}"  wx:for="{{item.likes_user}}" wx:for-item="likeUsers" wx:key="likeus" src="{{likeUsers.head}}" ></image>
+                </view>
+                <view class="zanCount mr20 ml10"  data-id="{{item.id}}" data-likeCount="{{item.likes}}" bindtap="toList">
+                    {{item.likes}}人赞过>
+                </view>
+                <view class="icons flex">
+                    <image src="/images/mxq1/mxq1_pl_icon.png"></image>
+                    <text class="ml15" style="font-size:22rpx;color:#fff;">{{item.comments}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- music icon start  -->
+<view class="music_icon pf" wx:if="{{!hideMusic}}" bindtap="playBgm">
+    <image  class="{{playing == true ? 'play':''}}" src="/images/music_icon.png"></image>
+</view>
+<!-- music icon end   -->
+<!-- addForm start  -->
+<view class="add_bg pa" bindtap="hideForm" wx:if="{{add}}"></view>
+<view class="my_form pf" id="myForm" wx:if="{{add}}">
+    <form id="my_form">
+        <textarea class="dreamInp" bindconfirm="confirm" bindblur="confirm" cursor-spacing='50' style="font-size:28rpx;color:#707070;height:270rpx;" placeholder="请写下您的梦想，字数100字以内" maxlength="100" placeholder-style="font-size:28rpx;color:#707070" />
+        <view class="add_pic flex pr">
+            <image class="add_pic_icon" bindtap="addPic" wx:if="{{imgSrc == ''}}" src="/images/add_icon.png"></image>
+            <image src="{{imgSrc}}" bindtap="addPic" class="my_pic" wx:else></image>
+            <image class="pa del_icon" wx:if="{{imgSrc != ''}}" bindtap="deletPic" src="/images/delet_icon.png"></image>
+        </view>
+       <view class="hide_name mt15 flex tr" bindtap="hideName">
+            <view class="check_icon mr10 pr">
+                <image class="pa" src="/images/yes.png" style="width:24rpx;height:24rpx;left:0;top:0" wx:if="{{hideName}}"></image>
+            </view>
+            <view class="check_text">匿名</view>
+        </view>
+        <button id="submit" class="submit" bindtap="submit">发布</button>
+    </form>
+</view>
+<!-- addForm end  -->
+<!-- spread start  -->
+<image  class="spread tc pf flex" bindtap="spread" wx:if="{{!spread}}" src="/images/mxq1/mxq1_spread_icon.png"></image>
+<view class="pack_up pf flex" wx:if="{{spread}}">
+    <image class="pack_up_btn tc" bindtap="packUp" src="/images/mxq1/mxq1_packup_icon.png"></image>
+    <view class="links flex">
+        <image class="my_dream link_block" bindtap="toIndex" src="/images/index.png"></image>
+        <image  class="hot link_block" bindtap="sort" wx:if="{{sort == 'create_time'}}" src="/images/order.png"></image>
+        <image  class="hot link_block" bindtap="sort" wx:else src="/images/hot.png"></image>
+        <image class="comp link_block" bindtap="toComp" src="/images/company.png"></image>
+    </view>
+</view>
+<!-- spread end  -->

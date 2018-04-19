@@ -1,0 +1,120 @@
+<view class="bg" style="background-image:url({{backgroundUrl?backgroundUrl:'' }});background-size:100% 100%;background-attachment:fixed"></view>
+<view class="container pr"  > 
+    <!-- dream_detail start  -->
+    <view class="dream_detail">
+        <view class="wall_top pr">
+            <image wx:if="{{details.anonymous == 0}}" class="avatar mr10 fl" src="{{details.head}}"></image>
+            <image wx:else class="avatar mr10 fl" src="/images/mxq1_avatar_1.png"></image>
+            <view class="msg fl">
+                <view class="auther_name ellips">{{details.nickname}}</view>
+                <view class="auther_time ellips">{{details.create_time}}</view>
+            </view>
+            <view class="dele_btn pa" bindtap="del" wx:if="{{user_id == details.user_id}}" data-id="{{details.id}}">删除</view>
+        </view>
+        <view class="context">
+            {{details.dream}}
+             <view class="img tc" > 
+                 <image  class="dream_thumb" mode="aspectFill" wx:if="{{details.dream_thumb || details.dream_thumb != ''}}" class="context_pic" bindtap="prevImg" data-src="{{http_host}}{{details.dream_thumb}}" src="{{http_host}}{{details.dream_thumb}}"></image>
+             </view> 
+        </view>
+        <view class="options">
+            <view class="fl like_list" bindtap="toLists" data-id="{{details.id}}" wx:if="{{details.likes_user.length>0}}">
+                <view class="like_pic fl">
+                    <image class="fr icon {{item.index ? 'likePic'+item.index : ''}}" wx:if="{{likeUser != []}}" wx:for="{{likeUser}}" wx:key="item" src="{{item.head}}"></image>
+                </view>
+                <view class="like_count ml10 mr10 fl">
+                    {{details.likes}}人赞过>
+                </view>
+            </view>
+            <image class="fl icon mr20" wx:if="{{details.is_likes == 0}}" src="/images/mxq2/mxq2_like_icon.png" data-id="{{details.id}}" bindtap="makeLike"></image>
+            <image class="fl icon mr20" wx:if="{{details.is_likes == 1 }}" src="/images/mxq2/mxq2_liked_icon.png" bindtap="showTips"></image>
+            <image class="fl icon plicon" bindtap="focus" src="/images/mxq2/mxq2_pl_icon.png"></image>
+
+        </view>
+    </view>
+    <!-- dream_detail end  -->
+    <!-- pl start  -->
+    <view class="empty pl_details" wx:if="{{plCount == 0}}">
+        暂无评论
+    </view>
+    <view class="pl_details" wx:else>
+        <view class="pl_top">
+            全部回复({{plCount}}条回复)
+        </view>
+        <view class="pl_row" wx:for="{{plList}}" wx:key="item">
+            <view class="row_top">
+                <image wx:if="{{item.anonymous == 1}}" class="avatar mr10 fl" src="/images/mxq1_avatar_1.png"></image>
+                <image wx:else class="avatar mr10 fl" src="{{item.head}}"></image>
+                <view class="name ellips fl">{{item.nickname}}</view>
+                <view class="fr ellips tr time">{{item.create_time}}</view>
+            </view>
+            <view class="row_main">
+                <view class="fl">{{item.content}} </view>
+                <view class="fl mr5" wx:if="{{item.reply_id != 0}}">
+                    <view class="fl"> <text>//</text><text style="color:#5e669a">@ {{item.reply_name}}</text></view>
+                </view>
+                <view class="fl ml5" wx:if="{{item.reply_id != 0}}">{{item.reply_content}}</view>
+            </view>
+            <view class="row_option">
+                <view class="fr delet" wx:if="{{item.user_id == user_id}}" data-id="{{item.id}}" bindtap="deletPl">删除</view>
+                 <view class="reply fr" bindtap="replyFocus" data-name="{{item.nickname}}" data-id="{{item.id}}">回复</view>
+            </view>
+        </view>
+    </view>
+</view>
+<!-- pl end  -->
+
+<!-- input_pl start  -->
+<view class="add_bg pf" wx:if="{{focus || reply}}" bindtap="hideForm"></view>
+<view id="plForm" class="pl_area pf" wx:if="{{focus}}">
+    <textarea fixed cursor-spacing='50' name='input' placeholder="请输入评论" bindblur="confirm" bindinput='confirm' bindconfirm="confirm" style="width:100%;height:350rpx;" placeholder-style="font-size:28rpx;color:#707070;" style="font-size:28rpx;color:#333333;border-bottom:1px solid #eee;width:100%;"
+        maxlength="100" auto-focus/>
+    <view class="hide_name mt15 flex tr" wx:if="{{is_anonymous }}" bindtap="hideName">
+        <view class="check_icon mr10 pr">
+            <image class="pa" src="/images/yes.png" style="width:24rpx;height:24rpx;left:0;top:0" wx:if="{{hideName}}"></image>
+        </view>
+        <view class="check_text">匿名</view>
+    </view>
+    <button class="sub_btn tc" bindtap="submit">发布</button>
+</view>
+<view class="pf pl_input" wx:if="{{!focus}}" bindtap="focus">
+    <view class="inp_icon pa flex fl" style="align-items:center;justify-content:center">
+        <image src="/images/input_icon.png"></image>
+    </view>
+    <view class="fr focus_tab">
+        请输入评论
+    </view>
+</view>
+<!-- input_pl end  -->
+<!--reply input start -->
+<view class="replyArea pf" wx:if="{{reply}}">
+    <textarea fixed cursor-spacing='50' placeholder="回复: {{replayName}}" bindblur="reply_inp" bindinput='reply_inp' bindconfirm="reply_inp" style="width:100%;height:350rpx;" placeholder-style="font-size:28rpx;color:#707070;" style="font-size:28rpx;color:#333333;border-bottom:1px solid #eee;width:100%;"
+        maxlength="100" auto-focus/>
+    <view class="hide_name mt15 flex tr" wx:if="{{is_anonymous }}" bindtap="hideName">
+        <view class="check_icon mr10 pr">
+            <image class="pa" src="/images/yes.png" style="width:24rpx;height:24rpx;left:0;top:0" wx:if="{{hideName}}"></image>
+        </view>
+        <view class="check_text">匿名</view>
+    </view>
+    <view class="sub_btn tc" bindtap="reply">回复</view>
+</view>
+<!-- reply end  -->
+<!-- music icon start  -->
+<view  class="music_icon pf" wx:if="{{!hideMusic}}" bindtap="playBgm">
+    <image class="{{playing === true ? 'play':''}}" src="/images/music_icon.png"></image>
+</view>
+<!-- music icon end   -->
+<!-- spread start  -->
+<image class="spread tc pf flex" bindtap="spread" wx:if="{{!spread}}" src="/images/mxq1/mxq1_spread_icon.png"></image>
+<view class="pack_up pf flex" wx:if="{{spread}}">
+    <image class="pack_up_btn tc" bindtap="packUp" src="/images/mxq1/mxq1_packup_icon.png"></image>
+    <view class="links flex">
+        <image class="my_dream link_block" bindtap="toIndex" src="/images/index.png"></image>
+        <image class="comp link_block" bindtap="toComp" src="/images/company.png"></image>
+    </view>
+</view>
+<!-- spread end  -->
+
+<view class="bigimg" wx:if="{{bigimg}}" bindtap="bigimgclose">
+    <image  src="{{bigimgsrc}}" mode="widthFix"></image>
+</view>

@@ -1,0 +1,18 @@
+<view class="container">
+    <view class="list_row" wx:for="{{list}}" wx:key="item">
+        <view class="avatar fl">
+            <image src="{{item.head}}"></image>
+        </view>
+        <view class="name fl">
+            {{item.nickname}}
+        </view>
+        <view class="time fr">
+           {{item.create_time}}
+        </view>
+    </view>
+</view>
+<!-- music icon start  -->
+<view  class="music_icon pf" wx:if="{{!hideMusic}}" bindtap="playBgm">
+    <image  class="{{playing == true ? 'play':''}}" src="/images/music_icon.png"></image>
+</view>
+<!-- music icon end   -->

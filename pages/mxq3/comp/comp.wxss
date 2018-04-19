@@ -1,0 +1,100 @@
+/* pages/mxq1/comp/comp.wxss */
+.container{
+    width: 100%;
+    height:calc(100vh - 40rpx);
+    position: fixed;
+    overflow:scroll;
+    padding-top: 40rpx;
+    background-size: 100%;
+    background-repeat: repeat-y;
+}
+.outer{
+    width:calc(100% - 62rpx);
+    min-height:685rpx;
+    height: auto;
+    padding-top: 30rpx;
+    padding-bottom: 100rpx;
+    margin: 0 auto;
+    background-size: 100% 100%;
+}
+.top_main{
+    width:544rpx;
+    height: auto;
+    padding: 8rpx 22rpx 42rpx 30rpx;
+    margin-left: 24rpx;
+    font-size:  26rpx;
+    line-height: 40rpx;
+    color: #707070;
+    background-color: #fff;
+    border: 2px solid #b8b6e9;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 30rpx;
+}
+.row{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+.row_title{
+    height:44rpx;
+    line-height: 44rpx;
+}
+.row_detail{
+    line-height: 44rpx;
+    width:330rpx;
+}
+.wider{
+    width: calc(100% - 120rpx)
+}
+.comp_name{
+    width:100%;
+    font-size: 30rpx;
+    color: #333;
+}
+.right_icon{
+    width: 20rpx;
+    height: 24rpx;
+}
+
+.icon_box{
+    width: 44rpx;
+    height: 44rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon_box image{
+    width: 26rpx;
+    height: 26rpx;
+}
+.main{
+    width:544rpx;
+    height: auto;
+    padding: 8rpx 22rpx 42rpx 30rpx;
+    margin-left: 24rpx;
+    font-size:  26rpx;
+    line-height: 40rpx;
+    color: #707070;
+    background-color: #fff;
+    border: 2px solid #b8b6e9;
+    border-radius: 8px;
+    word-wrap:break-word;
+}
+.desc_words{
+    margin-bottom: 34rpx;
+    word-break:normal;
+}
+.pack_up{
+    width:480rpx
+}
+.spread{
+    width: 90rpx;
+}
+.links{
+    width: 390rpx;
+    border:1px solid #bababa;
+}
+.link_block{
+    width: 130rpx;
+}
